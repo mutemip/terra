@@ -1,0 +1,7 @@
+terraform.tfvars
+public_ip.txt
+terraform.tfstate
+terraform.tfstate.backup
+admin-key-pair-us-east-1.pem
+.terraform/
+.terraform/providers/registry.terraform.io/hashicorp/aws/

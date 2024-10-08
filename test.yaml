@@ -1,0 +1,42 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo
+
+  tasks:
+    - name: "Update packages and upgrade"
+      apt:
+        update_cache: true
+        upgrade: true
+        force_apt_get: true
+
+    - name: "Install Apache server"
+      apt:
+        name: apache2
+        state: latest
+
+    - name: "Create Document Root"
+      file:
+        path: "/var/www/html"
+        state: directory
+        owner: "www-data"
+        mode: 0755
+
+    - name: "Configure apache2 to listen on port 8080"
+      lineinfile:
+        path: /etc/apache2/ports.conf
+        regexp: 'Listen 80'
+        line: 'Listen 8080'
+      notify: restart apache2
+
+    - name: "Configure apache2 virtualhost to use port 8080"
+      lineinfile:
+        path: /etc/apache2/sites-available/000-default.conf
+        regexp: '<VirtualHost *:80>'
+        line: '<VirtualHost *:8080>'
+      notify: restart apache2
+
+  handlers:
+    - name: restart apache2
+      service:
+        name: apache2

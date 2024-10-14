@@ -1,6 +1,24 @@
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "private_key_path" {}
+
+terraform {
+
+  # required_providers {
+  #   aws = {
+  #     source = "hashicorp/aws"
+  #     version = "~> 3.0"
+  #   }
+  # } 
+
+  ## Setting up terraform cloud
+  cloud { 
+    organization = "Mutemip-ORG" 
+    workspaces { 
+      name = "terra-workspace" 
+    } 
+  } 
+}
 variable "key_name" {
     default = "admin-key-pair-us-east-1"
 }

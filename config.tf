@@ -26,6 +26,34 @@ provider "aws" {
 #     depends_on = ["aws_s3_bucket.mybucket"]   
 # }
 
+# resource "aws_s3_bucket" "terraform_state" {
+#   bucket = "devops-tf-state-mutemip"
+#   force_destroy = true
+
+#   versioning {
+#     enabled = true
+#   }
+
+#   server_side_encryption_configuration {
+#     rule {
+#       apply_server_side_encryption_by_default {
+#         sse_algorithm = "AES256"
+#       }
+#     }
+#   }
+# }
+
+# resource "aws_dynamodb_table" "terraform_locks" {
+#   name = "devops-locks-mutemip"
+#   billing_mode = "PAY_PER_REQUEST"
+#   hash_key = "LockID"
+
+#   attribute {
+#     name = "LockID"
+#     type = "S"
+#   }
+# }
+
 resource "aws_instance" "webserver" {
     ami           = "${lookup(var.images, var.region)}"
     instance_type = "${var.size["small"]}"

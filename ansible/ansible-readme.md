@@ -13,7 +13,10 @@
  - `sudo ansible-playbook test.yaml -kK`
 
 # For dry run, use:
- - `sudo ansible-playbook test.yaml -kK -check`
+ - `sudo ansible-playbook test.yaml -kK --check`
 
 # To check playbook syntax, run:
  - `sudo ansible-playbook test.yaml -kK --syntax-check`
+
+# To check playbook changes on dry run:
+ - `sudo ansible-playbook test.yaml -kK --check --diff`

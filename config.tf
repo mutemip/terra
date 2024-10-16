@@ -55,13 +55,19 @@ provider "aws" {
 # }
 
 resource "aws_instance" "webserver" {
+
+    count = 3
     ami           = "${lookup(var.images, var.region)}"
     instance_type = "${var.size["small"]}"
     key_name      = "${var.key_name}" 
 
-    provisioner "local-exec" {
-      command = "echo ${aws_instance.webserver.public_ip} > public_ip.txt"
+    tags = {
+      name = "webserver-${count.index + 1}"
     }
+
+    # provisioner "local-exec" {
+    #   command = "echo ${aws_instance.webserver.public_ip} > public_ip.txt"
+    # }
 
     provisioner "local-exec" {
       when = destroy
@@ -72,9 +78,9 @@ resource "aws_instance" "webserver" {
 
 
 ### Elastic IP
-resource "aws_eip" "ip" {
-  instance = "${aws_instance.webserver.id}" # example of implicit dependency
-}
+# resource "aws_eip" "ip" {
+#   instance = "${aws_instance.webserver.id}" # example of implicit dependency
+# }
 
 # ### s3 bucket
 # resource "aws_s3_bucket" "mybucket" {
@@ -82,9 +88,9 @@ resource "aws_eip" "ip" {
 # }
 
 # Output definition
-output "aws_instance_public_dns" {
-  value = "${aws_instance.webserver.public_dns}"
-}
+# output "aws_instance_public_dns" {
+#   value = "${aws_instance.webserver.public_dns}"
+# }
 
 output "child_received" {
   value = "${module.child.received}"

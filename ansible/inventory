@@ -61,11 +61,33 @@ dallas_nodes
     
 """    
 Ansible Playbook 
-    Ansible Playbook is a file that contains a set of instructions that can be executed on a set of hosts. Playbooks are written in YAML format and are easy to read and write. Playbooks are used to automate tasks like installing software, configuring servers, and deploying applications. 
-    Playbooks are made up of one or more plays. A play is a set of tasks that are executed on a set of hosts. Each task is a single action that is executed on a host. 
+    Ansible Playbook is a file that contains a set of instructions that can be executed on a set of hosts. 
+    
+    Playbooks are written in YAML format and are easy to read and write. Playbooks are used to automate tasks like installing software, configuring servers, and deploying applications.
+
+    Playbooks are made up of one or more plays. 
+
+    A play is a set of tasks that are executed on a set of hosts. 
+    Each task is a single action that is executed on a host.
+
     Playbooks can be run using the ansible-playbook command. 
     ansible-playbook playbook.yml
     
+    Playbook Structure
+    ---
+    - name: Playbook name
+        hosts: group_name
+        tasks:
+            - name: Task name
+            module_name:
+                option1: value1
+                option2: value2
+            - name: Task name
+            module_name:
+                option1: value1
+                option2: value2
+    
+    Inventory File - Contains the list of hosts that the playbook will run on.
 """
     
 # Inventory group
